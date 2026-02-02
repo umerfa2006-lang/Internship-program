@@ -35,5 +35,5 @@ Research on Sensors
 
 ## ACKNOWLEDGEMENT
 
-I sincerely thank Professor ____________________ for their guidance and support during my internship.
+I sincerely thank Professor Enis Yazici for their guidance and support during my internship.
 

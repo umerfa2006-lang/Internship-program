@@ -12,14 +12,87 @@
 | PWM Pins (D3, D5, D6, etc.)| Generate PWM signals             |
 | Serial Pins (TX/RX)         | Serial communication interface  |
 
-## Sensors Information
+## Basic Blink Example for ARD R3 DIP Precision
 
-| Sensor Name               | Code       | Key Specifications                 | Uses                                |
-|----------------------------|------------|----------------------------------|------------------------------------|
-| Photoresistor             | KY-018     | Sensitive to light intensity      | Automatic street lights            |
-| Temperature Sensor        | SEN-DHT22  | Measures temperature -40°C to 125°C | Weather monitoring systems         |
-| Heartbeat Sensor          | KY-039     | Measures heartbeat               | Heart rate monitoring devices      |
-| Sound Sensor Module       | KY-037     | Analog output for sound intensity | Sound-activated alarms             |
-| Sound Sensor Module       | KY-038     | More sensitive to sound           | Noise level monitoring             |
-| Infrared Emission Sensor  | HW-489     | Emission distance ~1.3 m          | Remote-control transmitters        |
-| Rotary Encoder Module     | HW-040     | ~20–30 pulses per revolution      | Volume or brightness control       |
+```cpp
+// Basic Blink Example for ARD R3 DIP Precision
+
+// Pin where the LED is connected
+int ledPin = 13; // Most Arduino boards have a built-in LED on pin 13
+
+void setup() {
+  // Initialize the digital pin as an output
+  pinMode(ledPin, OUTPUT);
+}
+
+void loop() {
+  digitalWrite(ledPin, HIGH);   // Turn the LED on
+  delay(1000);                  // Wait for 1 second (1000 milliseconds)
+  digitalWrite(ledPin, LOW);    // Turn the LED off
+  delay(1000);                  // Wait for 1 second
+}
+```
+
+## KY-018 Sensor Information
+| KY-018 Pin         | Microcontroller Pin | Notes                        |
+| ------------------ | ------------------- | ---------------------------- |
+| VCC                | 5V                  | Power supply for sensor      |
+| GND                | GND                 | Common ground                |
+| Analog Output (A0) | A0                  | Reads analog light intensity |
+
+
+```cpp
+// KY-018 Photoresistor Example for ARD R3 DIP Precision
+
+int photoPin = A0;  // Analog pin connected to KY-018
+int sensorValue = 0; // Variable to store sensor reading
+
+void setup() {
+  Serial.begin(9600); // Start serial communication at 9600 baud
+}
+
+void loop() {
+  sensorValue = analogRead(photoPin); // Read the analog value from KY-018
+  Serial.print("Light Intensity: ");
+  Serial.println(sensorValue);        // Print the value to Serial Monitor
+  delay(500);                         // Wait half a second before next reading
+}
+```
+
+Sensor Type: Light Sensor (Photoresistor)
+
+Function:
+Detects the intensity of ambient light
+Converts light levels into analog voltage
+
+Used in:
+Automatic street lights
+Light-activated alarms
+Brightness control for electronic devices
+Arduino and IoT light sensing projects
+
+Applications:
+Home automation systems
+Robotics for light-following or light-sensitive tasks
+Environmental monitoring
+Educational electronics projects
+
+Behavior when running the code:
+The microcontroller reads the voltage from the KY-018
+Higher light intensity produces higher analog values
+Values are printed to the Serial Monitor
+LEDs or other devices can be controlled based on these values
+
+##  KY-039 Heartbeat Sensor Information
+
+| KY-039 Pin       | Microcontroller Pin | Notes                         |
+| ---------------- | ------------------- | ----------------------------- |
+| VCC              | 5V                  | Power supply for sensor       |
+| GND              | GND                 | Common ground                 |
+| Signal (Digital) | D2                  | Digital pin to read heartbeat |
+
+
+
+
+
+

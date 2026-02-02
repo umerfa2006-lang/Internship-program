@@ -91,6 +91,58 @@ LEDs or other devices can be controlled based on these values
 | GND              | GND                 | Common ground                 |
 | Signal (Digital) | D2                  | Digital pin to read heartbeat |
 
+```cpp
+// KY-039 Heartbeat Sensor Example for ARD R3 DIP Precision
+
+int pulsePin = 2;     // Digital pin connected to KY-039 Signal
+int ledPin = 13;      // Built-in LED to indicate heartbeat
+int pulseState = 0;   // Variable to store current pulse reading
+
+void setup() {
+  pinMode(pulsePin, INPUT);   // Set pulse pin as input
+  pinMode(ledPin, OUTPUT);    // Set LED pin as output
+  Serial.begin(9600);         // Start serial communication
+}
+
+void loop() {
+  pulseState = digitalRead(pulsePin); // Read heartbeat signal
+  if (pulseState == HIGH) {
+    digitalWrite(ledPin, HIGH);       // Turn LED on when pulse detected
+    Serial.println("Heartbeat detected");
+  } else {
+    digitalWrite(ledPin, LOW);        // Turn LED off otherwise
+  }
+  delay(50);                           // Small delay for stability
+}
+```
+KY-039 Heartbeat / Pulse Sensor Information
+
+Sensor Type: Heartbeat / Pulse Sensor
+
+Function:
+Detects the heartbeat by measuring changes in blood flow
+Converts heartbeat signals into digital pulses
+
+Used in:
+Heart rate monitoring devices
+Fitness trackers
+Arduino and IoT health projects
+Educational electronics projects
+
+Applications:
+Health monitoring systems
+Wearable electronics
+Robotics and bio-feedback projects
+Laboratory experiments for learning about heart rate
+
+Behavior when running the code:
+
+The microcontroller reads digital pulses from the KY-039
+Each pulse corresponds to a heartbeat
+The code counts pulses per minute to calculate heart rate
+Values are printed to the Serial Monitor
+LEDs or displays can be triggered to indicate heartbeat
+
 
 
 

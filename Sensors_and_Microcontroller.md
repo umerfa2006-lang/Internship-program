@@ -274,6 +274,186 @@ Digital output goes HIGH when sound exceeds a certain threshold
 Values are printed to the Serial Monitor
 Can be used to trigger LEDs, buzzers, or other output devices
 
+## KY-038 Sound Sensor Module
+| KY-038 Pin          | Microcontroller Pin | Notes                                 |
+| ------------------- | ------------------- | ------------------------------------- |
+| VCC                 | 5V                  | Power supply for sensor               |
+| GND                 | GND                 | Common ground                         |
+| Analog Output (A0)  | A0                  | Reads sound intensity as analog value |
+| Digital Output (D2) | D2                  | HIGH when sound exceeds set threshold |
 
+```cpp
+// KY-038 Sound Sensor Example for ARD R3 DIP Precision
 
+int analogPin = A0;   // Analog output from KY-038
+int digitalPin = 2;   // Digital threshold output
+int soundValue;
 
+void setup() {
+  pinMode(digitalPin, INPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  soundValue = analogRead(analogPin);   // Read sound intensity
+  Serial.print("Sound Level: ");
+  Serial.println(soundValue);
+
+  if (digitalRead(digitalPin) == HIGH) {
+    Serial.println("Sound threshold exceeded");
+  }
+
+  delay(500);
+}
+```
+KY-038 Sound Sensor Module Information
+
+Sensor Type: Sound / Microphone Sensor
+
+Function:
+Detects sound levels using a microphone
+Provides both analog and digital sound output
+
+Used in:
+Noise detection systems
+Sound-activated switches
+Arduino sound-based projects
+
+Applications:
+Noise level monitoring
+Clap-controlled lights
+Security and alert systems
+Educational electronics experiments
+
+Behavior when running the code:
+The microcontroller continuously reads sound intensity
+Analog values increase as sound becomes louder
+Digital output turns HIGH when sound crosses a preset threshold
+Readings are displayed on the Serial Monitor
+The sensor can be used to trigger LEDs, alarms, or relays
+
+## HW-489 Infrared Emission Sensor
+| HW-489 Pin | Microcontroller Pin | Notes                              |
+| ---------- | ------------------- | ---------------------------------- |
+| VCC        | 5V                  | Power supply for IR emitter        |
+| GND        | GND                 | Common ground                      |
+| Signal     | D3                  | Digital pin to control IR emission |
+
+```cpp
+// HW-489 Infrared Emitter Example for ARD R3 DIP Precision
+
+int irPin = 3;   // Digital pin connected to HW-489 Signal
+
+void setup() {
+  pinMode(irPin, OUTPUT);
+}
+
+void loop() {
+  digitalWrite(irPin, HIGH); // Turn IR emitter ON
+  delay(1000);
+
+  digitalWrite(irPin, LOW);  // Turn IR emitter OFF
+  delay(1000);
+}
+```
+HW-489 Infrared Emission Sensor Information
+
+Sensor Type: Infrared (IR) Emitter
+
+Function:
+Emits infrared light when powered
+Used to transmit IR signals to receivers
+
+Used in:
+Remote control systems
+Infrared communication projects
+Object detection systems (with IR receiver)
+
+Applications:
+TV and appliance remote controls
+IR-based communication systems
+Obstacle detection when paired with IR receivers
+Educational Arduino projects
+
+Behavior when running the code:
+The microcontroller sends HIGH or LOW signals to the HW-489
+When the signal pin is HIGH, the IR LED emits infrared light
+When the signal pin is LOW, IR emission stops
+The emitted IR light can be detected by an IR receiver
+Emission can be controlled using delays or signal patterns
+
+## HW-040 Rotary Encoder Module
+| HW-040 Pin | Microcontroller Pin | Notes                           |
+| ---------- | ------------------- | ------------------------------- |
+| VCC        | 5V                  | Power supply for rotary encoder |
+| GND        | GND                 | Common ground                   |
+| CLK        | D2                  | Clock signal output             |
+| DT         | D3                  | Data signal output              |
+| SW         | D4                  | Push-button switch output       |
+
+```cpp
+// HW-040 Rotary Encoder Example for ARD R3 DIP Precision
+
+int clkPin = 2;   // CLK pin
+int dtPin  = 3;   // DT pin
+int swPin  = 4;   // Switch pin
+
+int lastClkState;
+int counter = 0;
+
+void setup() {
+  pinMode(clkPin, INPUT);
+  pinMode(dtPin, INPUT);
+  pinMode(swPin, INPUT_PULLUP);
+
+  Serial.begin(9600);
+  lastClkState = digitalRead(clkPin);
+}
+
+void loop() {
+  int currentClkState = digitalRead(clkPin);
+
+  if (currentClkState != lastClkState) {
+    if (digitalRead(dtPin) != currentClkState) {
+      counter++;
+    } else {
+      counter--;
+    }
+    Serial.print("Encoder Value: ");
+    Serial.println(counter);
+  }
+
+  lastClkState = currentClkState;
+
+  if (digitalRead(swPin) == LOW) {
+    Serial.println("Button Pressed");
+    delay(300);
+  }
+}
+
+HW-040 Rotary Encoder Module Information
+
+Module Type: Rotary Encoder with Push Button
+
+Function:
+Detects rotational movement and direction
+Provides digital pulses as the knob is rotated
+
+Used in:
+Volume control systems
+Menu navigation interfaces
+Position and speed detection projects
+
+Applications:
+Brightness and volume control in electronics
+User input devices for embedded systems
+Arduino-based control panels
+Educational projects for learning digital inputs
+
+Behavior when running the code:
+The microcontroller detects pulses from CLK and DT pins
+Rotation direction is determined by comparing CLK and DT states
+Each step of rotation changes a counter value
+Pressing the knob triggers the switch input
+Values are displayed on the Serial Monitor or used to control devices
+```

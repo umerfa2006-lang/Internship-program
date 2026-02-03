@@ -430,6 +430,7 @@ void loop() {
     delay(300);
   }
 }
+```
 
 HW-040 Rotary Encoder Module Information
 

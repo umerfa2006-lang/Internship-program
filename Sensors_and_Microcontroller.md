@@ -457,4 +457,4 @@ Rotation direction is determined by comparing CLK and DT states
 Each step of rotation changes a counter value
 Pressing the knob triggers the switch input
 Values are displayed on the Serial Monitor or used to control devices
-```
+
